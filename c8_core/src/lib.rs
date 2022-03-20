@@ -80,6 +80,51 @@ impl Emu {
         self.st = 0;
         self.ram[0..FONTSET_SIZE].copy_from_slice(&FONTSET);
     }
+
+    pub fn tick(&mut self) {
+        //Fetch
+        let op = self.fetch();
+
+        // Decode and execute
+        self.execute(op)
+    }
+
+    fn fetch(&mut self) -> u16 {
+        let hb = self.ram[self.pc as usize] as u16;
+        let lb = self.ram[(self.pc + 1) as usize] as u16;
+        let op = (hb << 8) | lb;
+        self.pc += 2;
+
+        op
+    }
+
+    pub fn tick_timers(&mut self) {
+        if self.dt > 0 {
+            self.dt -= 1;
+        }
+
+        if self.st > 0 {
+            if self.st == 1 {
+                //BEEEEPPP
+            }
+            self.st -= 1;
+        }
+    }
+
+    fn execute(&mut self, op:u16) {
+        let d1 = (op & 0xF000) >> 12;
+        let d2 = (op & 0x0F00) >> 8;
+        let d3 = (op & 0x00F0) >> 4;
+        let d4 = (op & 0x000F);
+
+        match (d1, d2, d3, d4) {
+            //NOP
+            (0, 0, 0, 0) => return,
+            
+            // Default/Else case
+            (_, _, _, _) => unimplemented!("Unimplemented opcode: {}", op),
+        }
+    }
 }
 
 
