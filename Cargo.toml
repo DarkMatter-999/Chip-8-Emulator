@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 c8_core = { path = "./c8_core" }
+rand = "0.8.5"
