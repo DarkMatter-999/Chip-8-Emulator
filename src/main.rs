@@ -10,8 +10,8 @@ use sdl2::video::Window;
 use sdl2::keyboard::Keycode;
 
 const SCALE: u32 = 15;
-const WINDOW_WIDTH: u32 = (SCREEN_WIDTH as u32) * SCALE;
-const WINDOW_HEIGHT: u32 = (SCREEN_HEIGHT as u32) * SCALE;
+const WINDOW_WIDTH: u32 = (SCREEN_WIDTH as u32 + 10) * SCALE;
+const WINDOW_HEIGHT: u32 = (SCREEN_HEIGHT as u32 + 10) * SCALE;
 const TICKS_PER_FRAME: usize = 10;
 
 fn draw_screen(emu: &Emu, canvas: &mut Canvas<Window>) {
@@ -32,6 +32,9 @@ fn draw_screen(emu: &Emu, canvas: &mut Canvas<Window>) {
             canvas.fill_rect(rect).unwrap();
         }
     }
+    // TODO: Disassembler and Memory viewer
+    // let ram = emu.get_ram();
+    // println!("\n\n{:?}", &ram[emu.get_pc() as usize..(emu.get_pc()+10) as usize]);
     canvas.present();
 }
 

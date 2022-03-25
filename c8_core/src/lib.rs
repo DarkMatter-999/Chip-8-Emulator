@@ -462,6 +462,14 @@ impl Emu {
 
         self.ram[start..end].copy_from_slice(data);
     }
+
+    pub fn get_ram(&self) -> &[u8] {
+        &self.ram
+    }
+
+    pub fn get_pc(&self) -> u16 {
+        self.pc
+    }
 }
 
 
